@@ -9,6 +9,11 @@ public class Checking extends Account {
 		super(name,sSN,initDeposit);
 		setDebitCard();
 	}
+	
+	public void setRate() {
+		rate = getBaseRate()*.15;
+	}
+	
 	private void setDebitCard() {
 		debitCardNumber = (long)(Math.random()*Math.pow(10, 12));
 		debitCardPIN = (long)(Math.random()*Math.pow(10, 4));
