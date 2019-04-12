@@ -17,8 +17,8 @@ public abstract class Account implements IBaseRate {
 		this.name = name;
 		this.sSN = sSN;
 		this.balance = initDeposit;
-		
-		//set account number
+
+		// set account number
 		index++;
 		accountNumber = setAccountNumber();
 		setRate();
@@ -30,29 +30,40 @@ public abstract class Account implements IBaseRate {
 		int randomNumber = (int) (Math.random() * Math.pow(10, 3));
 		return lastTwoOfSSN + uniqueID + randomNumber;
 	}
-	
+
+	public void compound() {
+		double accruedInterest = balance * (rate / 100);
+		balance = balance+accruedInterest;
+		System.out.println("Accrued Interest: $"+accruedInterest);
+		printBalence();
+	}
+
 	// List of common methods transactions
 	public void showInfo() {
-		System.out.println("NAME: "+name+"\nACCOUNT NUMBER: "+accountNumber+"\nBALANCE: "+balance+
-				"\nRate: "+rate+"%");
+		System.out.println("NAME: " + name + "\nACCOUNT NUMBER: " + accountNumber + "\nBALANCE: " + balance + "\nRate: "
+				+ rate + "%");
 	}
+
 	public abstract void setRate();
-	
+
 	public void deposit(double amount) {
-		balance = balance+amount;
-		System.out.println("depositing $"+amount);
+		balance = balance + amount;
+		System.out.println("depositing $" + amount);
 		printBalence();
 	}
+
 	public void withdraw(double amount) {
-		balance = balance-amount;
-		System.out.println("withdrawing $"+amount);
+		balance = balance - amount;
+		System.out.println("withdrawing $" + amount);
 		printBalence();
 	}
+
 	public void transfer(String toWhere, double amount) {
-		System.out.println("Transfering $"+amount+" to "+toWhere);
+		System.out.println("Transfering $" + amount + " to " + toWhere);
 		printBalence();
 	}
+
 	public void printBalence() {
-		System.out.println("Your balence now: $"+balance);
+		System.out.println("Your balence now: $" + balance);
 	}
 }
