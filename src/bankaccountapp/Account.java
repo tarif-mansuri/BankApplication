@@ -1,11 +1,13 @@
 package bankaccountapp;
 
+import java.io.ObjectInputStream.GetField;
+
 public abstract class Account implements IBaseRate {
 	// List common properties for saving and checking accounts
 	private String name;
 	private String accountNumber;
 	private double balance;
-	private double rate;
+	public double rate;
 	private String sSN; // Social Security number
 
 	private static int index = 10000;
@@ -19,6 +21,7 @@ public abstract class Account implements IBaseRate {
 		//set account number
 		index++;
 		accountNumber = setAccountNumber();
+		setRate();
 	}
 
 	private String setAccountNumber() {
@@ -27,9 +30,29 @@ public abstract class Account implements IBaseRate {
 		int randomNumber = (int) (Math.random() * Math.pow(10, 3));
 		return lastTwoOfSSN + uniqueID + randomNumber;
 	}
-	// List of common methods
 	
+	// List of common methods transactions
 	public void showInfo() {
-		System.out.println("NAME: "+name+"\nACCOUNT NUMBER: "+accountNumber+"\nBALANCE: "+balance);
+		System.out.println("NAME: "+name+"\nACCOUNT NUMBER: "+accountNumber+"\nBALANCE: "+balance+
+				"\nRate: "+rate+"%");
+	}
+	public abstract void setRate();
+	
+	public void deposit(double amount) {
+		balance = balance+amount;
+		System.out.println("depositing $"+amount);
+		printBalence();
+	}
+	public void withdraw(double amount) {
+		balance = balance-amount;
+		System.out.println("withdrawing $"+amount);
+		printBalence();
+	}
+	public void transfer(String toWhere, double amount) {
+		System.out.println("Transfering $"+amount+" to "+toWhere);
+		printBalence();
+	}
+	public void printBalence() {
+		System.out.println("Your balence now: $"+balance);
 	}
 }
